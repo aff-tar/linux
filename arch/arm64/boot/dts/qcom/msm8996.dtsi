@@ -797,6 +797,8 @@
 			pinctrl-names = "default", "sleep";
 			pinctrl-0 = <&blsp2_spi5_default>;
 			pinctrl-1 = <&blsp2_spi5_sleep>;
+			interconnects = <&pnoc 78 &bimc 512>;
+			interconnect-names = "ddr";
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "disabled";
@@ -816,6 +818,8 @@
 			 clocks = <&gcc GCC_SDCC2_AHB_CLK>,
 			 <&gcc GCC_SDCC2_APPS_CLK>,
 			 <&xo_board>;
+			 interconnects = <&pnoc 81 &bimc 512>;
+			 interconnect-names = "ddr";
 			 bus-width = <4>;
 		 };
 
