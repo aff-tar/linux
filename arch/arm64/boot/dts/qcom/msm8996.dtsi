@@ -1193,6 +1193,8 @@
 						"bus_master",
 						"bus_slave";
 
+				interconnects = <&a0noc 45 &bimc 512>;
+				interconnect-names = "ddr";
 			};
 
 			pcie1: qcom,pcie@608000 {
@@ -1248,6 +1250,9 @@
 						"cfg",
 						"bus_master",
 						"bus_slave";
+
+				interconnects = <&a0noc 100 &bimc 512>;
+				interconnect-names = "ddr";
 			};
 
 			pcie2: qcom,pcie@610000 {
@@ -1302,6 +1307,9 @@
 						"cfg",
 						"bus_master",
 						"bus_slave";
+
+				interconnects = <&a0noc 108 &bimc 512>;
+				interconnect-names = "ddr";
 			};
 		};
 
