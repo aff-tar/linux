@@ -1766,6 +1766,10 @@
 				 <&venus_smmu 0x2d>,
 				 <&venus_smmu 0x31>;
 			memory-region = <&venus_region>;
+
+			interconnects = <&mmnoc 63 &bimc 512>;
+			interconnect-names = "ddr";
+
 			status = "disabled";
 
 			video-decoder {
