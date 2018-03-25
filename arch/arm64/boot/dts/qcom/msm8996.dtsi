@@ -15,6 +15,7 @@
 #include <dt-bindings/clock/qcom,mmcc-msm8996.h>
 #include <dt-bindings/clock/qcom,rpmcc.h>
 #include <dt-bindings/thermal/thermal.h>
+#include <dt-bindings/spmi/spmi.h>
 
 / {
 	model = "Qualcomm Technologies, Inc. MSM8996";
@@ -99,6 +100,7 @@
 			reg = <0x0 0x0>;
 			enable-method = "psci";
 			clocks = <&kryocc 0>;
+			cpu-supply = <&pm8994_s11_saw>;
 			operating-points-v2 = <&cluster0_opp>;
 			/* cooling options */
 			cooling-min-level = <0>;
@@ -117,6 +119,7 @@
 			reg = <0x0 0x1>;
 			enable-method = "psci";
 			clocks = <&kryocc 0>;
+			cpu-supply = <&pm8994_s11_saw>;
 			operating-points-v2 = <&cluster0_opp>;
 			/* cooling options */
 			cooling-min-level = <0>;
@@ -131,6 +134,7 @@
 			reg = <0x0 0x100>;
 			enable-method = "psci";
 			clocks = <&kryocc 1>;
+			cpu-supply = <&pm8994_s11_saw>;
 			operating-points-v2 = <&cluster1_opp>;
 			/* cooling options */
 			cooling-min-level = <0>;
@@ -149,6 +153,7 @@
 			reg = <0x0 0x101>;
 			enable-method = "psci";
 			clocks = <&kryocc 1>;
+			cpu-supply = <&pm8994_s11_saw>;
 			operating-points-v2 = <&cluster1_opp>;
 			/* cooling options */
 			cooling-min-level = <0>;
@@ -514,6 +519,12 @@
 			reg = <0x9820000 0x1000>;
 		};
 
+		saw3: syscon@9A10000 {
+			compatible = "syscon";
+			reg = <0x9A10000 0x1000>;
+		};
+
+
 		apcs_glb: mailbox@9820000 {
 			compatible = "qcom,msm8996-apcs-hmss-global";
 			reg = <0x9820000 0x1000>;
@@ -737,6 +748,32 @@
 			#size-cells = <0>;
 			interrupt-controller;
 			#interrupt-cells = <4>;
+
+			pmic@1 {
+				compatible = "qcom,pm8994", "qcom,spmi-pmic";
+				reg = <0x1 SPMI_USID>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				spm-regulators {
+					compatible = "qcom,pm8994-regulators";
+					qcom,saw-reg = <&saw3>;
+					s8 {
+						qcom,saw-slave;
+					};
+					s9 {
+						qcom,saw-slave;
+					};
+					s10 {
+						qcom,saw-slave;
+					};
+					pm8994_s11_saw: s11 {
+						qcom,saw-leader;
+						regulator-always-on;
+						regulator-min-microvolt = <905000>;
+						regulator-max-microvolt = <1140000>;
+					};
+				};
+			};
 		};
 
 		mmcc: clock-controller@8c0000 {
