@@ -97,6 +97,8 @@
 			compatible = "qcom,kryo";
 			reg = <0x0 0x0>;
 			enable-method = "psci";
+			clocks = <&kryocc 0>;
+			operating-points-v2 = <&cluster0_opp>;
 			next-level-cache = <&L2_0>;
 			L2_0: l2-cache {
 			      compatible = "cache";
@@ -109,6 +111,8 @@
 			compatible = "qcom,kryo";
 			reg = <0x0 0x1>;
 			enable-method = "psci";
+			clocks = <&kryocc 0>;
+			operating-points-v2 = <&cluster0_opp>;
 			next-level-cache = <&L2_0>;
 		};
 
@@ -117,6 +121,8 @@
 			compatible = "qcom,kryo";
 			reg = <0x0 0x100>;
 			enable-method = "psci";
+			clocks = <&kryocc 1>;
+			operating-points-v2 = <&cluster1_opp>;
 			next-level-cache = <&L2_1>;
 			L2_1: l2-cache {
 			      compatible = "cache";
@@ -129,6 +135,8 @@
 			compatible = "qcom,kryo";
 			reg = <0x0 0x101>;
 			enable-method = "psci";
+			clocks = <&kryocc 1>;
+			operating-points-v2 = <&cluster1_opp>;
 			next-level-cache = <&L2_1>;
 		};
 
@@ -152,6 +160,38 @@
 					cpu = <&CPU3>;
 				};
 			};
+		};
+	};
+
+	/*
+	 * The qcom-cpufreq-kryo driver reads the initial settings in efuse
+	 * and populates OPPs.
+	 */
+	cluster0_opp: opp_table0 {
+		compatible = "operating-points-v2-kryo-cpu";
+		nvmem-cells = <&speedbin_efuse>;
+		opp-shared;
+
+		opp@307200000 {
+			opp-hz = /bits/ 64 <  307200000 >;
+			opp-microvolt = <905000 905000 1140000>;
+			clock-latency-ns = <200000>;
+		};
+	};
+
+	/*
+	 * The qcom-cpufreq-kryo driver reads the initial settings in efuse
+	 * and populates OPPs.
+	 */
+	cluster1_opp: opp_table1 {
+		compatible = "operating-points-v2-kryo-cpu";
+		nvmem-cells = <&speedbin_efuse>;
+		opp-shared;
+
+		opp@307200000 {
+			opp-hz = /bits/ 64 <  307200000 >;
+			opp-microvolt = <905000 905000 1140000>;
+			clock-latency-ns = <200000>;
 		};
 	};
 
@@ -655,6 +695,11 @@
 			qusb2s_hstx_trim: hstx_trim@24f {
 				reg = <0x24f 0x1>;
 				bits = <1 4>;
+			};
+
+			speedbin_efuse: speedbin@133 {
+				reg = <0x133 0x1>;
+				bits = <5 3>;
 			};
 		};
 
