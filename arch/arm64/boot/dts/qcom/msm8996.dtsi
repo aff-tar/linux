@@ -1507,6 +1507,9 @@
 
 				iommus = <&mdp_smmu 0>;
 
+				interconnects = <&mmnoc 22 &bimc 512>, <&mmnoc 23 &bimc 512>, <&mmnoc 25 &bimc 512>;
+				interconnect-names = "port0", "port1", "rotator";
+
 				ports {
 					#address-cells = <1>;
 					#size-cells = <0>;
