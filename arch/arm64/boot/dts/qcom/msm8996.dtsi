@@ -726,6 +726,8 @@
 			pinctrl-names = "default", "sleep";
 			pinctrl-0 = <&blsp2_i2c0_default>;
 			pinctrl-1 = <&blsp2_i2c0_sleep>;
+			interconnects = <&pnoc 84 &bimc 512>;
+			interconnect-names = "ddr";
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "disabled";
@@ -757,6 +759,8 @@
 			pinctrl-names = "default", "sleep";
 			pinctrl-0 = <&blsp2_i2c1_default>;
 			pinctrl-1 = <&blsp2_i2c1_sleep>;
+			interconnects = <&pnoc 84 &bimc 512>;
+			interconnect-names = "ddr";
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "disabled";
@@ -782,6 +786,8 @@
 			pinctrl-names = "default", "sleep";
 			pinctrl-0 = <&blsp1_i2c2_default>;
 			pinctrl-1 = <&blsp1_i2c2_sleep>;
+			interconnects = <&pnoc 86 &bimc 512>;
+			interconnect-names = "ddr";
 			#address-cells = <1>;
 			#size-cells = <0>;
 			status = "disabled";
